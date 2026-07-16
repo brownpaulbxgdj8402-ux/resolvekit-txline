@@ -10,10 +10,10 @@ No wallet, wagering, token transfer, or real assets are used.
 
 ## Links
 
-- Live app: pending deployment
-- Demo video: pending deployment
-- Public repository: pending publication
-- Documentation: pending publication
+- Live app: https://resolvekit-txline.netlify.app
+- Demo video: https://resolvekit-txline.netlify.app/demo.webm
+- Public repository: https://github.com/brownpaulbxgdj8402-ux/resolvekit-txline
+- Documentation: https://github.com/brownpaulbxgdj8402-ux/resolvekit-txline/blob/main/README.md
 
 ## Feedback
 
