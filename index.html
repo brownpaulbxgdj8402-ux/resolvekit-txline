@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ResolveKit turns TxLINE sports data into deterministic, auditable demo-credit prediction markets.">
+  <title>ResolveKit | TxLINE Settlement Workbench</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ResolveKit home"><span class="brand-mark">R</span><span>RESOLVEKIT</span></a>
+    <div class="top-status"><span class="pulse"></span><span id="source-status">TXLINE CONNECTING</span></div>
+    <nav class="mode-switch" aria-label="Data mode">
+      <button class="mode active" data-mode="live">Live feed</button>
+      <button class="mode" data-mode="replay">Replay lab</button>
+    </nav>
+    <div class="balance"><span>DEMO BALANCE</span><strong id="balance">1,000 CR</strong></div>
+  </header>
+
+  <main>
+    <section class="command-strip" aria-label="Market summary">
+      <div><span>MARKETS</span><strong id="market-count">0</strong></div>
+      <div><span>SELECTED FIXTURE</span><strong id="selected-fixture">--</strong></div>
+      <div><span>SOURCE AGE</span><strong id="source-age">--</strong></div>
+      <div><span>SETTLEMENTS</span><strong id="settlement-count">0</strong></div>
+      <button id="refresh" class="icon-command" title="Refresh TxLINE feed" aria-label="Refresh TxLINE feed">↻</button>
+    </section>
+
+    <section class="workspace">
+      <aside class="fixtures-pane">
+        <div class="pane-heading"><div><span class="eyebrow">MARKET DIRECTORY</span><h1>Fixture queue</h1></div><span id="fixture-count" class="count">0</span></div>
+        <div id="fixture-list" class="fixture-list" aria-live="polite"></div>
+      </aside>
+
+      <section class="market-pane">
+        <div class="market-head">
+          <div><span id="competition" class="eyebrow">TXLINE FIXTURE</span><h2 id="matchup">Select a market</h2><p id="market-meta">Waiting for source data</p></div>
+          <span id="market-state" class="state-badge open">OPEN</span>
+        </div>
+
+        <ol class="lifecycle" aria-label="Market lifecycle">
+          <li data-stage="OPEN"><span>1</span><div><strong>Open</strong><small>Positions accepted</small></div></li>
+          <li data-stage="LOCKED"><span>2</span><div><strong>Locked</strong><small>Source observation</small></div></li>
+          <li data-stage="RESOLVED"><span>3</span><div><strong>Resolved</strong><small>Winner derived</small></div></li>
+          <li data-stage="SETTLED"><span>4</span><div><strong>Settled</strong><small>Receipt committed</small></div></li>
+        </ol>
+
+        <div id="outcomes" class="outcomes" aria-label="Outcome probabilities"></div>
+
+        <section class="evidence-band">
+          <div class="score-block"><span>OBSERVED SCORE</span><strong id="score">-- : --</strong><small id="clock">Awaiting observation</small></div>
+          <dl class="evidence-grid">
+            <div><dt>Fixture ID</dt><dd id="evidence-fixture">--</dd></div>
+            <div><dt>Source timestamp</dt><dd id="evidence-ts">--</dd></div>
+            <div><dt>Result rule</dt><dd>Full-time participant result</dd></div>
+            <div><dt>Integrity</dt><dd id="integrity">Pending source</dd></div>
+          </dl>
+        </section>
+
+        <section class="receipt-panel">
+          <div class="pane-heading"><div><span class="eyebrow">DETERMINISTIC OUTPUT</span><h3>Settlement receipt</h3></div><button id="copy-receipt" class="text-command" disabled>Copy receipt</button></div>
+          <pre id="receipt">No settlement receipt yet. A receipt is generated only after a final score is observed.</pre>
+        </section>
+      </section>
+
+      <aside class="position-pane">
+        <div class="pane-heading"><div><span class="eyebrow">DEMO CREDITS ONLY</span><h2>Position slip</h2></div></div>
+        <div id="selected-outcome" class="selection-empty">Select an outcome</div>
+        <label class="field-label" for="stake">Stake</label>
+        <div class="stake-row"><input id="stake" type="number" min="10" max="500" step="10" value="100"><span>CR</span></div>
+        <div class="quick-stakes"><button data-stake="50">50</button><button data-stake="100">100</button><button data-stake="250">250</button></div>
+        <div class="quote"><span>Potential return</span><strong id="potential-return">--</strong></div>
+        <button id="place-position" class="primary-command" disabled>Place demo position</button>
+        <p class="disclaimer">Simulation only. No wallet, wagering, token transfer, or real asset is used.</p>
+
+        <div id="replay-controls" class="replay-controls" hidden>
+          <div class="pane-heading"><div><span class="eyebrow">REVIEW HARNESS</span><h3>Deterministic replay</h3></div><span id="frame-label">1 / 5</span></div>
+          <button id="advance-frame" class="secondary-command">Advance source frame</button>
+          <label class="toggle"><input id="autoplay" type="checkbox"><span>Autoplay every 4 seconds</span></label>
+        </div>
+      </aside>
+    </section>
+
+    <section class="ledger-band">
+      <div class="pane-heading"><div><span class="eyebrow">AUDIT TRAIL</span><h2>Position & settlement ledger</h2></div><span class="ledger-note">Local demo state</span></div>
+      <div class="table-wrap"><table><thead><tr><th>Time</th><th>Fixture</th><th>Outcome</th><th>Stake</th><th>Status</th><th>Payout</th><th>Receipt</th></tr></thead><tbody id="ledger-body"><tr><td colspan="7" class="empty-row">No demo positions yet</td></tr></tbody></table></div>
+    </section>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="replay-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
