@@ -2,6 +2,10 @@
 
 ResolveKit is a TxLINE-native prediction market and deterministic settlement workbench built for the TxODDS Prediction Markets and Settlement track.
 
+- Live app: https://resolvekit-txline.netlify.app
+- Public repository: https://github.com/brownpaulbxgdj8402-ux/resolvekit-txline
+- Demo video: https://resolvekit-txline.netlify.app/demo.webm
+
 It creates winner markets from TxLINE fixtures, normalizes available 1X2 odds, accepts demo-credit positions, advances markets through `OPEN -> LOCKED -> RESOLVED -> SETTLED`, and emits a reproducible settlement receipt bound to the fixture ID, source timestamp, final score, winner, and rule.
 
 ## Product boundaries
